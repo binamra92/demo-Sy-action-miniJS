@@ -18,8 +18,6 @@ stages:
 - stage: _default
   jobs:
   - job: Job
-    pool:
-      vmImage: ubuntu-latest
     steps:
     - task: SynopsysSecurityScan@1
       displayName: 'Polaris Full Scan'
