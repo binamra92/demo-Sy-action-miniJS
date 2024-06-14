@@ -1,0 +1,34 @@
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- main
+- master
+- develop
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  - group: Polaris-scan-UG
+
+stages:
+- stage: _default
+  jobs:
+  - job: Job
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: SynopsysSecurityScan@1.6.0
+      displayName: 'Polaris Full Scan'
+      condition: not(eq(variables['Build.Reason'], 'PullRequest'))
+      inputs:
+        BRIDGE_POLARIS_SERVERURL: '$(BRIDGE_POLARIS_SERVERURL)'
+        BRIDGE_POLARIS_ACCESSTOKEN: '$(BRIDGE_POLARIS_ACCESSTOKEN)'
+        BRIDGE_POLARIS_ASSESSMENT_TYPES: 'SAST,SCA'
+        BRIDGE_POLARIS_APPLICATION_NAME: 'Synopsys_github_demo_repo'
+        BRIDGE_POLARIS_PROJECT_NAME: '$(Build.Repository.Name)'
+        BRIDGE_POLARIS_BRANCH_NAME: '$(Build.SourceBranchName)'
+        BRIDGE_POLARIS_REPORTS_SARIF_CREATE: true
