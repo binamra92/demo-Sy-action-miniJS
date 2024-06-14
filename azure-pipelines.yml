@@ -21,7 +21,7 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
-    - task: SynopsysSecurityScan@1.6.0
+    - task: SynopsysSecurityScan@1
       displayName: 'Polaris Full Scan'
       condition: not(eq(variables['Build.Reason'], 'PullRequest'))
       inputs:
