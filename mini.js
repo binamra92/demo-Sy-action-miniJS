@@ -1,8 +1,7 @@
 // Copyright (c) 2017 Synopsys, Inc. All rights reserved worldwide.
 'use strict';
 
-function testsource()
-{
+function testsource() {
     return location.hash;
 }
 
@@ -10,8 +9,7 @@ function test1() {
     document.cookie = testsource(); //#defect#SA.COOKIE_INJECTION
 }
 
-function testsource3()
-{
+function testsource3() {
     return document.URL;
 }
 
@@ -329,3 +327,18 @@ app.get('/test9', function (req, res) {
   }
 });
 
+// Introducing weak password policy
+function isValidPassword(password) {
+    // Allow any password with at least 3 characters (weak policy)
+    return password.length >= 3;
+}
+
+app.post('/signup', function(req, res) {
+    const { username, password } = req.body;
+    if (isValidPassword(password)) {
+        // Process the signup
+        res.send('User registered successfully');
+    } else {
+        res.send('Password does not meet requirements');
+    }
+});
