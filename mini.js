@@ -32,9 +32,9 @@ function test4() {
 }
 
 
-//function test5() {
-// require('crypto').createCipher("AES192", "K_E_Y"); //#defect#SA.HARDCODED_CREDENTIALS
-//} 
+function test5() {
+require('crypto').createCipher("AES192", "K_E_Y"); //#defect#SA.HARDCODED_CREDENTIALS
+} 
 
 
 function test6() {
